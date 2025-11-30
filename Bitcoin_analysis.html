@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>比特幣分析儀表板</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        /* 頁面基本樣式 */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #121212; /* 深色背景 */
+            color: #e0e0e0;
+        }
+        /* 容器和佈局 */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        /* 儀表板卡片樣式 */
+        .card {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            flex: 1 1 300px; /* 彈性佈局，最小寬度 300px */
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            border-bottom: 3px solid #f7931a; /* 比特幣主色 */
+        }
+        h2 {
+            color: #f7931a;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+        
+        /* 圖表容器專用樣式 */
+        #proportionsChartContainer {
+            min-height: 400px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>₿ 比特幣鏈上分析儀表板</h1>
+    </div>
+
+    <div class="container">
+        <div class="card" id="proportionsChartContainer">
+            <h2>持有者行為比例 (模擬數據)</h2>
+            <canvas id="proportionsChart"></canvas>
+        </div>
+
+        <div class="card">
+            <h2>市場總覽</h2>
+            <p>即時價格: $65,000 (需要 API)</p>
+            <p>市值: $1.28 T (需要 API)</p>
+        </div>
+        
+        <div class="card">
+            <h2>API 數據說明</h2>
+            <p>此處的圖表數據為模擬。要獲取真實的「長期持有 vs 波段 vs 日內」比例，需要使用特定的鏈上數據 API，例如 Glassnode 或 CryptoQuant。</p>
+            <p>點擊下方按鈕了解 API 資訊。</p>
+            <a href="#api-info" class="btn" style="background-color: #f7931a; color: #1e1e1e; padding: 10px; text-decoration: none; border-radius: 5px;">查看 API 資訊</a>
+        </div>
+    </div>
+
+    <script>
+        // 模擬數據：長期、波段、日內的比例
+        const proportionsData = {
+            labels: ['長期持有 (HODL)', '波段交易 (Swing)', '日內交易 (Day Trade)'],
+            datasets: [{
+                data: [55, 35, 10], // 模擬比例: 長期 55%, 波段 35%, 日內 10%
+                backgroundColor: [
+                    '#28a745', // 綠色
+                    '#ffc107', // 黃色
+                    '#dc3545'  // 紅色
+                ],
+                hoverOffset: 10
+            }]
+        };
+
+        const config = {
+            type: 'pie',
+            data: proportionsData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#e0e0e0' // 調整標籤顏色
+                        }
+                    },
+                    title: {
+                        display: false
+                    }
+                }
+            }
+        };
+
+        // 繪製圓餅圖
+        new Chart(
+            document.getElementById('proportionsChart'),
+            config
+        );
+    </script>
+    
+    <div style="height: 50px;"></div>
+    <div id="api-info" style="color: #e0e0e0; text-align: center; padding-bottom: 50px;">
+        <h2 style="color: white; border-bottom: none;">數據 API 資訊</h2>
+        </div>
+
+</body>
+</html>
